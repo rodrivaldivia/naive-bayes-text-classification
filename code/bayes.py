@@ -10,9 +10,9 @@ from sklearn import metrics
 import numpy as np
 
 print('Reading Files...');
-data = pd.read_csv("train.csv", usecols=["text", "class"]);
-# unknown_class = pd.read_csv("test.csv", usecols=["text", "class"]);
-# unknown_class = unknown_class[unknown_class['text'].apply(type) == str]
+data = pd.read_csv("../data/balanced_train.csv", usecols=["text", "class"]);
+unknown_class = pd.read_csv("../data/test.csv", usecols=["text", "class"]);
+unknown_class = unknown_class[unknown_class['text'].apply(type) == str]
 # print(unknown_class.info())
 # print(test.info())
 
@@ -31,19 +31,19 @@ print('Fitting Bayes...');
 text_clf.fit(train['text'], train['class']);
 
 print('Predicting Bayes...');
-train_prediction = text_clf.predict(test['text']);
-score = metrics.accuracy_score(test['class'], train_prediction)
-print("accuracy:   %0.3f" % score)
-print(metrics.classification_report(test['class'], train_prediction))
+train_prediction = text_clf.predict(unknown_class['text']);
+# score = metrics.accuracy_score(test['class'], train_prediction)
+# print("accuracy:   %0.3f" % score)
+# print(metrics.classification_report(test['class'], train_prediction))
 
-# print('happy predictions');
-# print(np.count_nonzero(train_prediction == 'happy'));
+print('happy predictions');
+print(np.count_nonzero(train_prediction == 'happy'));
 
-# print('sad predictions');
-# print(np.count_nonzero(train_prediction == 'sad'));
+print('sad predictions');
+print(np.count_nonzero(train_prediction == 'sad'));
 
-# print('hope predictions');
-# print(np.count_nonzero(train_prediction == 'hope'));
+print('hope predictions');
+print(np.count_nonzero(train_prediction == 'hope'));
 
-# print('angry predictions');
-# print(np.count_nonzero(train_prediction == 'angry'));
+print('angry predictions');
+print(np.count_nonzero(train_prediction == 'angry'));

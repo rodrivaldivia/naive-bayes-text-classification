@@ -1,5 +1,9 @@
 import os
 import pandas as pd 
+import nltk
+# nltk.download('sentiwordnet')
+# nltk.download('wordnet')
+from nltk.corpus import sentiwordnet as swn
 
 data = pd.read_csv("../data/train.csv", usecols=["text", "class"]);
 
@@ -18,9 +22,12 @@ i = 0;
 for index, row in data.iterrows():
 	tweet = row['text'];
 	command = "java -jar fastSentimentClassifier.jar \"" + tweet + "\"";
+	# breakdown = swn.senti_synset('hola')
+	# ret = breakdown.pos_score() - breakdown.neg_score()
 	ret = os.popen(command).read();
 
 	if(sentimentIsPostive(ret) == True):
+	if(ret > 0):
 		positive+=1;
 	else:
 		negative+=1;
